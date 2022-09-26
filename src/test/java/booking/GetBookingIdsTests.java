@@ -60,8 +60,8 @@ public class GetBookingIdsTests {
 		BookingModel existingBooking = _objectMapper.readValue(
 				existingBookingResponse.httpResponseBody,
 				BookingModel.class);
-		String qureyParamters = "?firstname=" + existingBooking.firstname + 
-								"&lastname=" + existingBooking.lastname;
+		String qureyParamters = "?firstname=" + existingBooking.firstname.replace("\"", "") + 
+								"&lastname=" + existingBooking.lastname.replace("\"", "");
 				
 		// When
 		GenericHttpResponseModel getBookingIdsResponse = _bookingsHttpFactory.getRequest(BookingProperties.BOOKING_URL, qureyParamters, BookingProperties.AUTH_TYPE_NOAUTH);
@@ -70,7 +70,7 @@ public class GetBookingIdsTests {
 		
 		// Then
 		assertEquals(HttpStatus.SC_OK, getBookingIdsResponse.statusCode);
-		assertTrue(_failedMessageHelper.generateInfoForFailedSearch(BookingProperties.BOOKING_URL, qureyParamters) + "BookingIds do not contain records", bookingIds.length > 0);		
+		assertTrue(_failedMessageHelper.generateInfoForFailedSearch(BookingProperties.BOOKING_URL, qureyParamters, _bookingIdList[randomIdIndex].bookingid) + "BookingIds do not contain records", bookingIds.length > 0);		
 		
 	}
 	
@@ -87,7 +87,7 @@ public class GetBookingIdsTests {
 		BookingModel existingBooking = _objectMapper.readValue(
 				existingBookingResponse.httpResponseBody,
 				BookingModel.class);
-		String qureyParamters = "?firstname=" + existingBooking.firstname;
+		String qureyParamters = "?firstname=" + existingBooking.firstname.replace("\"", "");
 				
 		// When
 		GenericHttpResponseModel getBookingIdsResponse = _bookingsHttpFactory.getRequest(BookingProperties.BOOKING_URL, qureyParamters, BookingProperties.AUTH_TYPE_NOAUTH);
@@ -96,7 +96,7 @@ public class GetBookingIdsTests {
 		
 		// Then
 		assertEquals(HttpStatus.SC_OK, getBookingIdsResponse.statusCode);
-		assertTrue(_failedMessageHelper.generateInfoForFailedSearch(BookingProperties.BOOKING_URL, qureyParamters) + "BookingIds do not contain records", bookingIds.length > 0);		
+		assertTrue(_failedMessageHelper.generateInfoForFailedSearch(BookingProperties.BOOKING_URL, qureyParamters, _bookingIdList[randomIdIndex].bookingid) + "BookingIds do not contain records", bookingIds.length > 0);		
 		
 	}
 	
@@ -114,7 +114,7 @@ public class GetBookingIdsTests {
 		
 		// Then
 		assertEquals(HttpStatus.SC_OK, getBookingIdsResponse.statusCode);
-		assertTrue(_failedMessageHelper.generateInfoForFailedSearch(BookingProperties.BOOKING_URL, qureyParamters) + "BookingIds do contain records", bookingIds.length == 0);		
+		assertTrue(_failedMessageHelper.generateInfoForFailedSearch(BookingProperties.BOOKING_URL, qureyParamters, 0) + "BookingIds do contain records", bookingIds.length == 0);		
 		
 	}
 	
@@ -131,7 +131,7 @@ public class GetBookingIdsTests {
 		BookingModel existingBooking = _objectMapper.readValue(
 				existingBookingResponse.httpResponseBody,
 				BookingModel.class);
-		String qureyParamters = "?lastname=" + existingBooking.lastname;
+		String qureyParamters = "?lastname=" + existingBooking.lastname.replace("\"", "");
 				
 		// When
 		GenericHttpResponseModel getBookingIdsResponse = _bookingsHttpFactory.getRequest(BookingProperties.BOOKING_URL, qureyParamters, BookingProperties.AUTH_TYPE_NOAUTH);
@@ -140,7 +140,7 @@ public class GetBookingIdsTests {
 		
 		// Then
 		assertEquals(HttpStatus.SC_OK, getBookingIdsResponse.statusCode);
-		assertTrue(_failedMessageHelper.generateInfoForFailedSearch(BookingProperties.BOOKING_URL, qureyParamters) + "BookingIds do not contain records", bookingIds.length > 0);		
+		assertTrue(_failedMessageHelper.generateInfoForFailedSearch(BookingProperties.BOOKING_URL, qureyParamters, _bookingIdList[randomIdIndex].bookingid) + "BookingIds do not contain records", bookingIds.length > 0);		
 		
 	}
 	
@@ -167,7 +167,7 @@ public class GetBookingIdsTests {
 		
 		// Then
 		assertEquals(HttpStatus.SC_OK, getBookingIdsResponse.statusCode);
-		assertTrue(_failedMessageHelper.generateInfoForFailedSearch(BookingProperties.BOOKING_URL, qureyParamters) + "BookingIds do not contain records", bookingIds.length > 0);		
+		assertTrue(_failedMessageHelper.generateInfoForFailedSearch(BookingProperties.BOOKING_URL, qureyParamters, _bookingIdList[randomIdIndex].bookingid) + "BookingIds do not contain records", bookingIds.length > 0);		
 		
 	}
 	
@@ -193,7 +193,7 @@ public class GetBookingIdsTests {
 		
 		// Then
 		assertEquals(HttpStatus.SC_OK, getBookingIdsResponse.statusCode);
-		assertTrue(_failedMessageHelper.generateInfoForFailedSearch(BookingProperties.BOOKING_URL, qureyParamters) + "BookingIds do not contain records", bookingIds.length > 0);		
+		assertTrue(_failedMessageHelper.generateInfoForFailedSearch(BookingProperties.BOOKING_URL, qureyParamters, _bookingIdList[randomIdIndex].bookingid) + "BookingIds do not contain records", bookingIds.length > 0);		
 		
 	}
 
@@ -219,7 +219,7 @@ public class GetBookingIdsTests {
 		
 		// Then
 		assertEquals(HttpStatus.SC_OK, getBookingIdsResponse.statusCode);
-		assertTrue(_failedMessageHelper.generateInfoForFailedSearch(BookingProperties.BOOKING_URL, qureyParamters) +  "BookingIds do not contain records", bookingIds.length > 0);		
+		assertTrue(_failedMessageHelper.generateInfoForFailedSearch(BookingProperties.BOOKING_URL, qureyParamters, _bookingIdList[randomIdIndex].bookingid) +  "BookingIds do not contain records", bookingIds.length > 0);		
 		
 	}
 	
@@ -252,8 +252,8 @@ public class GetBookingIdsTests {
 		BookingModel existingBooking = _objectMapper.readValue(
 				existingBookingResponse.httpResponseBody,
 				BookingModel.class);
-		String qureyParamters = "?firstname=" + existingBooking.firstname +
-								"&lastname=" + existingBooking.lastname +
+		String qureyParamters = "?firstname=" + existingBooking.firstname.replace("\"", "") +
+								"&lastname=" + existingBooking.lastname.replace("\"", "") +
 								"&checkin=" + existingBooking.bookingdates.checkin +
 								"&checkout=" + existingBooking.bookingdates.checkout;
 				
@@ -264,7 +264,7 @@ public class GetBookingIdsTests {
 		
 		// Then
 		assertEquals(HttpStatus.SC_OK, getBookingIdsResponse.statusCode);
-		assertTrue(_failedMessageHelper.generateInfoForFailedSearch(BookingProperties.BOOKING_URL, qureyParamters) + "BookingIds do contain records", bookingIds.length > 0);		
+		assertTrue(_failedMessageHelper.generateInfoForFailedSearch(BookingProperties.BOOKING_URL, qureyParamters, _bookingIdList[randomIdIndex].bookingid) + "BookingIds do contain records", bookingIds.length > 0);		
 		
 	}
 	
@@ -282,7 +282,7 @@ public class GetBookingIdsTests {
 				existingBookingResponse.httpResponseBody,
 				BookingModel.class);
 		String qureyParamters = "?checkin=" + existingBooking.bookingdates.checkin +
-								"&firstname=" + existingBooking.firstname;
+								"&firstname=" + existingBooking.firstname.replace("\"", "");
 				
 		// When
 		GenericHttpResponseModel getBookingIdsResponse = _bookingsHttpFactory.getRequest(BookingProperties.BOOKING_URL, qureyParamters, BookingProperties.AUTH_TYPE_NOAUTH);
@@ -291,7 +291,7 @@ public class GetBookingIdsTests {
 
 		// Then
 		assertEquals(HttpStatus.SC_OK, getBookingIdsResponse.statusCode);
-		assertTrue(_failedMessageHelper.generateInfoForFailedSearch(BookingProperties.BOOKING_URL, qureyParamters) + "BookingIds do not contain records", bookingIds.length > 0);		
+		assertTrue(_failedMessageHelper.generateInfoForFailedSearch(BookingProperties.BOOKING_URL, qureyParamters, _bookingIdList[randomIdIndex].bookingid) + "BookingIds do not contain records", bookingIds.length > 0);		
 		
 	}
 }
